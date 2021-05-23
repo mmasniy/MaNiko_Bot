@@ -1,13 +1,19 @@
-import requests
-from datetime import datetime
-from aiogram import Bot, Dispatcher, types, executor
-from config import token_bot, answer_first_layer, id_admins
+import asyncio
+
+from aiogram import Bot, Dispatcher, executor
+
+from config import token_bot
+
+from aiogram import types
+from config import answer_first_layer, id_admins
 from database import BotSQl
 import functions
 import config
+import asyncio
 
-bot = Bot(token_bot)
-dp = Dispatcher(bot)
+loop = asyncio.get_event_loop()
+bot = Bot(token_bot, parse_mode="HTML")
+dp = Dispatcher(bot, loop=loop)
 
 
 @dp.message_handler(commands=['start'])
@@ -81,8 +87,9 @@ async def answer_message_first_layer(message: types.Message):
                                                      f" серед кнопок. Дякую!")
 
 
+
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=False)
+    executor.start_polling(dp)
 
 # """ ID-users
 # 669655144 - Vika

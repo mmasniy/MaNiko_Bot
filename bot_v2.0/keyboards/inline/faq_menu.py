@@ -66,7 +66,7 @@ go_to_faq_main_menu = InlineKeyboardButton(
     )
 )
 
-about_us_menu.add(about_shop, go_to_faq_main_menu)
+about_us_menu.add(about_shop, go_to_faq_main_menu, go_to_menu)
 # faq_main_menu->about_us________________________________________________
 
 
@@ -78,7 +78,7 @@ about_NP = InlineKeyboardButton(
     text=f"Нова Пошта 🟥",
     callback_data=faq_menu_callback.new(
         subgroup="delivery_methods",
-        item="1"
+        item="NP"
     )
 )
 
@@ -86,7 +86,7 @@ about_JS = InlineKeyboardButton(
     text=f"Justin 🟦",
     callback_data=faq_menu_callback.new(
         subgroup="delivery_methods",
-        item="1"
+        item="JS"
     )
 )
 
@@ -94,7 +94,7 @@ about_KP = InlineKeyboardButton(
     text=f"Kasta Post ⬛",
     callback_data=faq_menu_callback.new(
         subgroup="delivery_methods",
-        item="1"
+        item="KP"
     )
 )
 
@@ -102,11 +102,11 @@ self_pickup = InlineKeyboardButton(
     text=f"Самовивіз зі складцу компанії 🏢",
     callback_data=faq_menu_callback.new(
         subgroup="delivery_methods",
-        item="1"
+        item="self_pickup"
     )
 )
 
-about_us_menu.add(about_NP, about_JS, about_JS, self_pickup, go_to_faq_main_menu, go_to_menu)
+delivery_methods_menu.add(about_NP, about_JS, about_KP, self_pickup, go_to_faq_main_menu, go_to_menu)
 # faq_main_menu->delivery_methods________________________________________
 
 # faq_main_menu->pay_methods_____________________________________________
@@ -117,7 +117,7 @@ pay_to_PP = InlineKeyboardButton(
     text=f"Сплата по реквізитам на розрахунковий рахунок",
     callback_data=faq_menu_callback.new(
         subgroup="pay_methods",
-        item="1"
+        item="PP"
     )
 )
 
@@ -125,7 +125,7 @@ pay_to_CC = InlineKeyboardButton(
     text=f"Сплата на картку Приват Банку",
     callback_data=faq_menu_callback.new(
         subgroup="pay_methods",
-        item="1"
+        item="CC"
     )
 )
 
@@ -133,7 +133,7 @@ C_O_D = InlineKeyboardButton(
     text=f"Сплата при отриманні товару",
     callback_data=faq_menu_callback.new(
         subgroup="pay_methods",
-        item="1"
+        item="COD"
     )
 )
 
@@ -156,11 +156,11 @@ back_to_about_us_menu = InlineKeyboardButton(
     text=f"Назад до категорії 'Про нас 🏡'",
     callback_data=faq_menu_callback.new(
         subgroup="about_us",
-        item="2"
+        item="0"
     )
 )
 
-about_us_menu_second_level.add(go_to_faq_main_menu, go_to_menu)
+about_us_menu_second_level.add(back_to_about_us_menu, go_to_faq_main_menu, go_to_menu)
 
 back_to_delivery_methods_menu_second_level = InlineKeyboardMarkup(row_width=1, inline_keyboard=[])
 
@@ -168,11 +168,11 @@ back_to_delivery_methods_menu = InlineKeyboardButton(
     text=f"Розділ доставки",
     callback_data=faq_menu_callback.new(
         subgroup="delivery_methods",
-        item="2"
+        item="0"
     )
 )
 
-back_to_delivery_methods_menu_second_level.add(go_to_faq_main_menu, go_to_menu)
+back_to_delivery_methods_menu_second_level.add(back_to_delivery_methods_menu, go_to_faq_main_menu, go_to_menu)
 
 back_to_pay_methods_menu_second_level = InlineKeyboardMarkup(row_width=1, inline_keyboard=[])
 
@@ -180,10 +180,10 @@ back_to_pay_methods_menu = InlineKeyboardButton(
     text=f"Розділ 'Способи оплати'",
     callback_data=faq_menu_callback.new(
         subgroup="pay_methods",
-        item="2"
+        item="0"
     )
 )
 
-back_to_pay_methods_menu_second_level.add(go_to_faq_main_menu, go_to_menu)
+back_to_pay_methods_menu_second_level.add(back_to_pay_methods_menu, go_to_faq_main_menu, go_to_menu)
 
 # keyboard_for_second_level_subgroups____________________________________

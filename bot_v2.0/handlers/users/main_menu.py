@@ -2,11 +2,12 @@ from asyncio import sleep
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, InputFile
 
-from data.config import admins, queue_to_communication, dict_to_communication
+from data.config import admins, queue_to_communication, dict_to_communication, sale_product, i
 from keyboards.inline import main_menu
 from keyboards.inline.callback_datas import go_to_main_callback, main_callback
+from keyboards.inline.keyboard_for_product import first_product, first_product_other_img
 from keyboards.inline.main_menu import go_main_menu
 
 from loader import dp, bot
@@ -32,6 +33,9 @@ async def connect_to_admin(call: CallbackQuery, callback_data: dict):
     if call.from_user.id not in queue_to_communication:
         queue_to_communication.append(call.from_user.id)
         dict_to_communication[str(call.from_user.id)] = call.message
+    # print(dict_to_communication[f'{call.from_user.id}'])
+    await bot.send_message(admins[0], f"Вас було додано до чату з користувачем: "
+                                      f"@{dict_to_communication[f'{call.from_user.id}']['chat']['username']}")
     await bot.send_message(call.from_user.id, "Зачейкате хвилинку під'єдную вільного менеджера до чату 😃")
     await sleep(3)
     await bot.send_message(call.from_user.id, "До чату під'єднано менеджера Магазину")
@@ -51,7 +55,6 @@ async def message_to_admin(message: types.Message, state: FSMContext):
 
 @dp.message_handler()
 async def message_admin_to_client(message: types.Message):
-    print("-" *20 + "\n\n@dp.message_handler()\nasync def message_admin_to_client(message: types.Message):\n\n"+"-"*20)
     if message.from_user.id == admins[0] and message.text == "Завершити чат":
         await dp.storage.close()
         await dp.storage.wait_closed()
@@ -65,3 +68,31 @@ async def message_admin_to_client(message: types.Message):
             await bot.send_message(queue_to_communication[0], message.text)
     else:
         await message.answer(message.text)
+
+
+@dp.callback_query_handler(main_callback.filter(tab="show_promotional_offers"))
+async def show_promotional_offers(call: CallbackQuery, callback_data: dict):
+    await call.answer()
+    await bot.send_message(call.from_user.id, "Розсилка була розпочата!")
+    await bot.send_photo(call.from_user.id, photo=InputFile("/Users/mmasniy/Desktop/MaNiko_Bot/img/SALE.jpeg"))
+    # await sleep(5)
+    # await bot.send_message(call.from_user.id, f"{sale_product['1']['name']}\n"
+    #                                           f"Ціна звичайна: {sale_product['1']['old_price']}\n"
+    #                                           f"Ціна зі знижкою: {sale_product['1']['new_price']}\n"
+    #                                           f"{sale_product['1']['charact']}\n"
+    #                                           f"{sale_product['1']['about']}",
+    #                        reply_markup=first_product)
+    # await bot.send_photo(call.from_user.id, photo=InputFile(path_or_bytesio=sale_product['1']['img']),
+    #                      reply_markup=first_product_other_img)
+
+    for item in sale_product:
+        print(item)
+        # await sleep(5)
+        await bot.send_message(call.from_user.id, f"{sale_product[str(item)]['name']}\n"
+                                                  f"Ціна звичайна: {sale_product[str(item)]['old_price']}\n"
+                                                  f"Ціна зі знижкою: {sale_product[str(item)]['new_price']}\n"
+                                                  f"{sale_product[str(item)]['charact']}\n"
+                                                  f"{sale_product[str(item)]['about']}",
+                               reply_markup=first_product)
+        await bot.send_photo(call.from_user.id, photo=InputFile(path_or_bytesio=sale_product[str(item)]['img']),
+                             reply_markup=first_product_other_img)

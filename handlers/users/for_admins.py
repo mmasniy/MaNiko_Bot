@@ -6,6 +6,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from data.config import dict_to_communication, queue_to_communication, admins, sale_product, i
 from keyboards.inline.admin_buttons import cancel_chat
 from keyboards.inline.callback_datas import go_to_main_callback, mail_callback, img_callback
+from keyboards.inline.faq_menu import go_to_menu
 from keyboards.inline.keyboard_for_product import first_product, first_product_other_img
 from loader import dp, bot
 

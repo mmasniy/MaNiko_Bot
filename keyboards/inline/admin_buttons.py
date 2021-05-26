@@ -12,9 +12,10 @@ cancel_chat = InlineKeyboardMarkup(row_width=1, inline_keyboard=[])
 site = InlineKeyboardButton(text="Сайт нашого магазину 🎆", url="https://maniko.com.ua")
 
 cancel_chat.add(site, go_to_menu)
+
 # buttons after cancel chat with admin for client ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-# # buttons for admin before selection chat, which to need tp close ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# # buttons for admin before selection chat, which to need tp close ++++++++++++++++++++++++++++++++++++++++++++++++++++
 #
 # choice_chat = InlineKeyboardMarkup(row_width=1, inline_keyboard=[])
 #
@@ -28,4 +29,4 @@ cancel_chat.add(site, go_to_menu)
 #                                       f"{dict_to_communication[f'{queue_to_communication[1]}']['chat']['username']}")
 #     choice_chat.add(chat2)
 #
-# # buttons for admin before selection chat, which to need tp close ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# # buttons for admin before selection chat, which to need tp close ++++++++++++++++++++++++++++++++++++++++++++++++++++

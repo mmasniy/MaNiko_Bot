@@ -25,6 +25,7 @@ async def go_to_main_menu(call: CallbackQuery, callback_data: dict):
     #                        reply_markup=main_menu)
     await bot.send_message(call.from_user.id, f"Чим ми можемо бути корисні, {call.from_user.full_name}? 😃",
                            reply_markup=main_menu)
+    await bot.send_message(call.from_user.id, f"Оберіть, що саме Вас цікавить. 👆")
 
 
 @dp.callback_query_handler(main_callback.filter(tab="connect_to_admin"))
@@ -67,7 +68,11 @@ async def message_admin_to_client(message: types.Message):
         if len(queue_to_communication) > 0:
             await bot.send_message(queue_to_communication[0], message.text)
     else:
-        await message.answer(message.text)
+        await bot.send_message(message.from_user.id, f"Вибачте, але я не розумію, чим саме можу допомогти Вам. Оберіть "
+                                                     f"відподний пункт нижще. Дякую) 😃")
+        await bot.send_message(message.from_user.id, f"Чим ми можемо бути корисні, {message.from_user.full_name}? 😃",
+                               reply_markup=main_menu)
+        await bot.send_message(message.from_user.id, f"Оберіть, що саме Вас цікавить. 👆")
 
 
 @dp.callback_query_handler(main_callback.filter(tab="show_promotional_offers"))

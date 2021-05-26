@@ -3,7 +3,7 @@ from aiogram.types import CallbackQuery, ReplyKeyboardRemove
 
 from keyboards.default import phone_number
 from keyboards.inline.callback_datas import meet_callback
-from keyboards.inline.main_menu import go_main_menu
+from keyboards.inline.main_menu import go_main_menu, main_menu
 from loader import dp, bot
 from aiogram import types
 
@@ -18,6 +18,7 @@ async def get_answer_yes(call: CallbackQuery, callback_data: dict):
     # await bot.answer_callback_query(callback_query_id=call.id)
     await call.answer()
     await bot.send_message(call.from_user.id, "Напишіть Ваше ім'я 😉: ")
+    await bot.send_message(call.from_user.id, "⬇️")
     await GreetingTest.Q1_name.set()
 
 
@@ -29,6 +30,7 @@ async def answer_q1(message: types.Message, state: FSMContext):
     await message.answer(f"Для підтримки зв'язку введіть, будь-ласка, "
                          f"свій номер телефону в форматі +38(0**)***-**-** 😁 "
                          f"або натисніть кнопку нижче для відправки Вашого контаку.", reply_markup=phone_number)
+    await bot.send_message(message.from_user.id, "⬇️")
     await GreetingTest.Q2_phone.set()
 
 
@@ -40,6 +42,7 @@ async def answer_q2(message: types.Message, state: FSMContext):
 
     await message.answer(f"Також для зв'язку введіть свій email, будемо дуже вдячні! 😉",
                          reply_markup=ReplyKeyboardRemove())
+    await bot.send_message(message.from_user.id, "⬇️")
     await GreetingTest.Q3_email.set()
 
 
